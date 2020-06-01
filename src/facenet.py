@@ -101,6 +101,7 @@ RANDOM_FLIP = 4
 FIXED_STANDARDIZATION = 8
 FLIP = 16
 def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batch_size_placeholder):
+  with tf.name_scope("tempscope"):
     images_and_labels_list = []
     for _ in range(nrof_preprocess_threads):
         filenames, label, control = input_queue.dequeue()

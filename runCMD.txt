@@ -1,0 +1,26 @@
+
+pip install numpy=1.16.2
+pip install scipy==1.2.1
+
+activate python37
+d:
+cd D:\code\dnn\facenet
+
+# align
+python src/align/align_dataset_mtcnn.py D:/data/dnn/lfw/raw D:/data/dnn/lfw/lfw_mtcnnpy_160 --image_size 160 --margin 32 --random_order --gpu_memory_fraction 0.25
+
+# validate
+python src/validate_on_lfw.py D:/data/dnn/lfw/lfw_mtcnnpy_160 model/20180402-114759 --distance_metric 1 --use_flipped_images --subtract_mean --use_fixed_image_standardization
+out: Accuracy: 0.99650+
+
+# compare 
+python src/compare.py model/20180402-114759 src/Cate_Blanchett_0001.jpg  src/Cate_Blanchett_0004.jpg
+out: d = 0.9154
+
+# compare 
+python src/compare.py model/20180402-114759 src/Cate_Blanchett_0001.jpg  src/Carol_Williams_0001.jpg
+out: d = 1.5061
+
+q - KeyError: "The name 'decode_image/cond_jpeg/is_png' refers to an Operation not in the graph
+a - Putting the body of facenet.create_input_pipeline in a 
+with tf.name_scope("tempscope"):
